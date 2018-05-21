@@ -68,6 +68,15 @@
         </nav>
 
         <main class="py-4">
+            @if($toast = session('toast'))
+                <div class="px-5">
+                    <div class="alert alert-{{ $toast['type'] }}">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                        {{ $toast['message'] }}
+                    </div>
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>

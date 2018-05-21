@@ -76,7 +76,16 @@ class RegisterController extends Controller
         if($user->status != 1) {
             $this->guard()->logout();
             $request->session()->invalidate();
-            return redirect('/');
+        }
+        if($user->status == 0) {
+            $toast['type'] = 'info';
+            $toast['message'] = 'Activation Pending!';
+            return redirect('/login')->with(['toast' => $toast]);
+        }
+        if($user->status == 2) {
+            $toast['type'] = 'danger';
+            $toast['message'] = 'You\'re Banned!';
+            return redirect('/login')->with(['toast' => $toast]);
         }
     }
 }
