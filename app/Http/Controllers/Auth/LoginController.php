@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyMail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -45,8 +47,9 @@ class LoginController extends Controller
             $request->session()->invalidate();
         }
         if($user->status == 0) {
+            Mail::to($user->email)->send(new VerifyMail($user));
             $toast['type'] = 'info';
-            $toast['message'] = 'Activation Pending!';
+            $toast['message'] = 'Email verification pending! Check Inbox';
             return redirect('/login')->with(['toast' => $toast]);
         }
         if($user->status == 2) {

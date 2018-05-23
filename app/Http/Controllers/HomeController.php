@@ -26,9 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['user'] = auth()->user();
-        $data['categories'] = Category::all();
-        $data['tags'] = Tag::all();
+        $user = auth()->user();
+        $data['user'] = $user;
+        $data['categories'] = $user->categories;
+        $data['tags'] = $user->tags;
+        $data['domains'] = $user->domains;
         return view('home',$data);
     }
 }

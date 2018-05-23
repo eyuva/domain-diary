@@ -20,7 +20,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($user->domains as $key => $domain)
+                            @foreach($domains as $key => $domain)
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>
                                     <td><a href="//{{$domain->name}}" rel="nofollow" target="_blank">{{$domain->name}}</a></td>

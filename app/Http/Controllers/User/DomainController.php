@@ -37,8 +37,8 @@ class DomainController extends Controller
     {
         $user = auth()->user();
         $data['domain'] = Domain::where('user_id','=',$user->id)->findOrFail($id);
-        $data['categories'] = Category::all();
-        $data['tags'] = Tag::all();
+        $data['categories'] = $user->categories;
+        $data['tags'] = $user->tags;
         return view('domain.edit',$data);
     }
     public function save()

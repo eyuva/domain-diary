@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\VerifyMail;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Vinkla\Hashids\Facades\Hashids;
 
 class RegisterController extends Controller
 {
@@ -78,14 +81,38 @@ class RegisterController extends Controller
             $request->session()->invalidate();
         }
         if($user->status == 0) {
+            Mail::to($user->email)->send(new VerifyMail($user));
             $toast['type'] = 'info';
-            $toast['message'] = 'Activation Pending!';
+            $toast['message'] = 'Email verification pending! Check Inbox';
             return redirect('/login')->with(['toast' => $toast]);
         }
         if($user->status == 2) {
             $toast['type'] = 'danger';
-            $toast['message'] = 'You\'re Banned!';
+            $toast['message'] = 'You\'re banned!';
             return redirect('/login')->with(['toast' => $toast]);
         }
+    }
+    protected function verify(Request $request, $token)
+    {
+        try{
+            $user_id = Hashids::decode($token)[0];
+            $time = Hashids::decode($token)[1];
+//            Time based restrictions can be done here
+            $user = User::find($user_id);
+            if( $user->status == 0){
+                $user->status = 1;
+                $user->save();
+                $toast['type'] = 'info';
+                $toast['message'] = 'Email verified!';
+            }else{
+                $toast['type'] = 'info';
+                $toast['message'] = 'Email verification already done!';
+            }
+        }
+        catch (\Exception $e){
+            $toast['type'] = 'danger';
+            $toast['message'] = 'Some error occurred';
+        }
+        return redirect('/login')->with(['toast' => $toast]);
     }
 }
