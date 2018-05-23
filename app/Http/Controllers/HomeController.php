@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Helpers\Whois;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['user'] = auth()->user();
+        $data['categories'] = Category::all();
+        $data['tags'] = Tag::all();
+        return view('home',$data);
     }
 }

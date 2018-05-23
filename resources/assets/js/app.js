@@ -20,3 +20,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+$('select[multiple]').select2();
+
+$('select').each(function(){
+    var optionValue = $(this).data('value');
+    $(this).val(optionValue).change();
+});
