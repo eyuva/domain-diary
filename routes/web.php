@@ -11,6 +11,8 @@
 |
 */
 
+use App\Helpers\Whois;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::namespace('User')->group(function(){
+    Route::prefix('domain')->group(function(){
+        Route::get('/{id}', 'DomainController@index')->name('domain.index');
+        Route::get('/edit/{id}', 'DomainController@edit')->name('domain.edit');
+        Route::get('/delete/{id}', 'DomainController@delete')->name('domain.delete');
+        Route::post('/save', 'DomainController@save')->name('domain.save');
+    });
+});
