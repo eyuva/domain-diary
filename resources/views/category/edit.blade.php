@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
                         <form action="{{route('category.save')}}" method="post">
@@ -14,7 +14,7 @@
                                 <input type="text" name="category" id="category" class="form-control" value="{{$category->name?:''}}">
                             </div>
                             <div class="text-sm-right">
-                                <a href="{{route('home')}}" class="btn btn-default">Back</a>
+                                <a href="{{route('category.index')}}" class="btn btn-default">Back</a>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
