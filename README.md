@@ -1,7 +1,7 @@
 # Domain Diary
 Handy tool to keep records of your domains and track their expiration dates and DNS records.
 
-#Installation
+# Installation
 
 Step 1. Install PHP 7.1 or greater with MySql and Setup Composer
 
