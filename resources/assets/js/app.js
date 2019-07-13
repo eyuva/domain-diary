@@ -15,11 +15,21 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 const app = new Vue({
     el: '#app'
 });
+
+/**
+ * Loading Vendor Files
+ */
+
+require('./../vendor/ouical/build/ouical.js');
+
+
+/**
+ * Modified Select input with multiple options to use select2
+ * and pre-select options using data attribute
+ */
 
 $('select[multiple]').select2();
 
