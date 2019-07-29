@@ -46,7 +46,7 @@ Contributions are welcome and will be fully credited. We accept contributions vi
 This project can be used freely and if you **Love It** then **Star It**
 
 # Credits
-* [Vishal Sancheti](https://github.com/v1shky)
+* [Vishal Sancheti](https://github.com/vishal-sancheti)
 
 # License
 
